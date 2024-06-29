@@ -1,7 +1,9 @@
 ######## Libraries ########
 
 import xml.etree.ElementTree as ET
-import re
+from dotenv import load_dotenv
+import os
+import mysql.connector
 
 
 ######## Functions ########
@@ -10,14 +12,14 @@ import re
 
 def extract_titles(document_xml: str) -> list:
     """ 
-    Extract all usefull infos (here : IDs, Namespaces, Titles and Revision IDs) 
+    Extract all usefull infos (here : IDs, Namespaces, Titles and Revision IDs) and contatenates them in a list of tuples
+    in view of inputting them into the database
     
     Parameters :
     - document_xml (str) : the path to the file
 
     Outputs :
-    - 4 lists : the lists of all info relative to aricles
-    - 
+    - list of tuples : list a list of tuple as (id, ns, title, revision id)
 
     """
     print("Nodes processing started")
