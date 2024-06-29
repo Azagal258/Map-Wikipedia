@@ -21,7 +21,7 @@ def extract_titles(document_xml: str) -> list:
 
     """
     print("Nodes processing started")
-    listA = []
+    out_tuples = []
     tree = ET.parse(document_xml)
     root = tree.getroot()
     # Jinsoul: maybe try merge these two "finds" as they're expensive operations
@@ -32,9 +32,9 @@ def extract_titles(document_xml: str) -> list:
         titles = page.find('{http://www.mediawiki.org/xml/export-0.10/}title')
         rev_id = page.find('{http://www.mediawiki.org/xml/export-0.10/}revision/{http://www.mediawiki.org/xml/export-0.10/}id')
 
-        listA.append((id.text, ns.text, titles.text, rev_id.text))
-    print(listA)
-    return listA
+        out_tuples.append((id.text, ns.text, titles.text, rev_id.text))
+    print(out_tuples)
+    return out_tuples
 
 def make_db(titles: list):
     """ 
