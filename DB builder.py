@@ -21,20 +21,22 @@ def extract_titles(document_xml: str) -> list:
 
     """
     print("Nodes processing started")
-    IDs = []
-    NSs = []
-    Titles = []
-    Rev_IDs = []
+    listA = []
     tree = ET.parse(document_xml)
     root = tree.getroot()
     # Jinsoul: maybe try merge these two "finds" as they're expensive operations
     for page in root.findall('{http://www.mediawiki.org/xml/export-0.10/}page'): #'for variable in root.iter('{le truc xmlns}nom_de_la_balise')' 
-        
-            titles = inside.find('{http://www.mediawiki.org/xml/export-0.10/}title') 
-            listA.append(titles.text)
+
+        id = page.find('{http://www.mediawiki.org/xml/export-0.10/}id')
+        ns = page.find('{http://www.mediawiki.org/xml/export-0.10/}ns')
+        titles = page.find('{http://www.mediawiki.org/xml/export-0.10/}title')
+        rev_id = page.find('{http://www.mediawiki.org/xml/export-0.10/}revision/{http://www.mediawiki.org/xml/export-0.10/}id')
+
+        listA.append((id.text, ns.text, titles.text, rev_id.text))
+    print(listA)
     return listA
 
-def make_db(titles: list, nodes_file: str):
+def make_db(titles: list):
     """ 
     Make a csv files of all the titles with them as label and lowercase as id 
     
@@ -50,14 +52,10 @@ def make_db(titles: list, nodes_file: str):
 ######## Magic Land ########
 
 ### Inputs ###
-document_xml = "./Crawler/xml/test_article.xml"
+document_xml = "test_article.xml"
 # document_xml = "./Dumps/XML_files/frwiki-20240301-pages-articles-multistream1.xml"
-
-### Outputs ###
-nodes_file = "./Crawler/csv/nodes.csv"
-edges_file = "./Crawler/csv/edges.csv"
 
 
 ### Code ###
 titles = extract_titles(document_xml)
-make_db(titles,nodes_file)
+make_db(titles)
