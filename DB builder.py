@@ -61,7 +61,7 @@ def init_db(infos: list):
 
     #First querry
     insert_first_set = """
-    INSERT INTO artinfo (ai_id_general, ai_namespace, ai_title, ai_id_revision)
+    INSERT INTO article_infos_final (ai_id_general, ai_namespace, ai_title, ai_id_revision)
     VALUES (%s, %s, %s, %s)
     """
 
@@ -73,15 +73,15 @@ def init_db(infos: list):
     cursor.close()
     conn.close()
 
-    print("Database created")
-
 ######## Magic Land ########
 
 ### Inputs ###
-document_xml = "test_article.xml"
-# document_xml = "./Dumps/XML_files/frwiki-20240301-pages-articles-multistream1.xml"
+# document_xml = "test_article.xml"
+document_xml = "F:/Scrap Wikipedia/Dumps/XML_files/frwiki-20240301-pages-articles-multistream1.xml"
 
 
 ### Code ###
 bulk = extract_infos(document_xml)
+print("Extraction done")
 init_db(bulk)
+print("Database created")
