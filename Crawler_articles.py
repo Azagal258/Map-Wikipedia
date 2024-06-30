@@ -1,12 +1,3 @@
-# Code from 29/04/24 23:34
-######## To Do List ########
-# Finish implementing NS space to take only the articles (done)
-# Fix the xml not returning text in extract articles (done)
-# Implement bz2 partial decompression
-# Implement use of a file/DB instead of reading the whole file twice
-# Allow to choose file path and name of .csv
-# Add an basic UI
-
 ######## Libraries ########
 
 import xml.etree.ElementTree as ET
