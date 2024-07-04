@@ -2,7 +2,7 @@
 
 import xml.etree.ElementTree as ET
 import re
-
+import bz2
 
 ######## Functions ########
 
@@ -119,12 +119,8 @@ def make_links_csv(articles,titles):
         if cnt%1000 == 0 :
             print(cnt)
         for i in links:
-            # if i in titles :
-                j = "{}\t{}\t{}\n".format(titles[cnt].lower(), i.lower(), links[i])
-                f.write(j)
-            # else:
-            #     j = "{}\t{}\t{}\n".format(titles[cnt].lower(), '404', links[i])
-            #     f.write(j)
+            j = "{}\t{}\t{}\n".format(titles[cnt].lower(), i.lower(), links[i])
+            f.write(j)
         cnt += 1
     f.close()
     print("Edges processing ended")
@@ -135,6 +131,8 @@ def make_links_csv(articles,titles):
 ### Inputs ###
 # document_xml = "./Crawler/xml/test_article.xml"
 document_xml = "F:/Scrap Wikipedia/Dumps/XML_files/frwiki-20240301-pages-articles-multistream1.xml"
+# document_xml = "F:/Scrap Wikipedia/DLed_files/Wikipédia/frwiki-20240301-pages-articles-multistream1.xml-p1p306134.bz2"
+# document_xml = "F:/Scrap Wikipedia/DLed_files/Wikipédia/frwiki-20240301-pages-articles-multistream.xml.bz2"
 
 ### Code ###
 titles = extract_titles(document_xml)
